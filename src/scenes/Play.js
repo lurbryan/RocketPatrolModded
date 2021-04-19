@@ -68,9 +68,17 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+        // MOD 1: 
         // FIRE flag
         this.fireFlag = this.add.text(game.config.width/2, borderUISize + borderPadding*2, 
             'FIRE', scoreConfig);
+        // MOD 3:
+        // Speed of ships increases 30 seconds in
+        this.clock = this.time.delayedCall(30000, () => {
+            this.ship01.doubleSpeed();
+            this.ship02.doubleSpeed();
+            this.ship03.doubleSpeed();
+        }, null, this);
     }
 
     update(){
@@ -101,6 +109,7 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
+        // MOD 1:
         // Display or hide FIRE flag
         if(this.p1Rocket.isFiring) {
             this.fireFlag.visible = true;
