@@ -2,6 +2,7 @@ class Play extends Phaser.Scene {
     constructor(){
         super("playScene");
     }
+
     preload(){
         // load images/tile sprites
         this.load.image('rocket', './assets/rocket.png');
@@ -14,6 +15,7 @@ class Play extends Phaser.Scene {
                                 startFrame: 0, 
                                 endFrame: 9});
     }
+
     create(){
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
@@ -66,7 +68,11 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+        // FIRE flag
+        this.fireFlag = this.add.text(game.config.width/2, borderUISize + borderPadding*2, 
+            'FIRE', scoreConfig);
     }
+
     update(){
         // check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
@@ -95,7 +101,15 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
+        // Display or hide FIRE flag
+        if(this.p1Rocket.isFiring) {
+            this.fireFlag.visible = true;
+        }
+        else {
+            this.fireFlag.visible = false;
+        }
     }
+
     checkCollision(rocket, ship) {
         // simple AABB checking
         if (rocket.x < ship.x + ship.width && 
@@ -107,6 +121,7 @@ class Play extends Phaser.Scene {
             return false;
         }
     }
+
     shipExplode(ship) {
         // temporarily hide ship
         ship.alpha = 0;                         

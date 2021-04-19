@@ -1,3 +1,15 @@
+/* Lucas Bryant
+ * Prof. Adam Smith
+ * CMPM 120 - Game Development Experience
+ * 19 April 2021
+ * 
+ * How long did this take me?
+ * 
+ * Sources to cite, if any...
+*/
+
+
+
 let config = {
     type: Phaser.Canvas,
     width: 640,
