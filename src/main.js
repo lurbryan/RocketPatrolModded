@@ -4,9 +4,10 @@
  * 19 April 2021
  * 
  * List of Changes:
- *     1. Added FIRE UI display when F is pressed.              (5)
- *     2. Now allows player control after rocket has been fired (5)
- *     3. Ships increase in speed 30 seconds into game          (5)
+ *     1. Added FIRE UI display when F is pressed.               (5)
+ *     2. Now allows player control after rocket has been fired. (5)
+ *     3. Ships increase in speed 30 seconds into game.          (5)
+ *     4. Ships start in random direction of motion.             (5)
  * 
  * 
  * How long did this take me?
