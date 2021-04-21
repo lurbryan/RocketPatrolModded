@@ -101,6 +101,9 @@ class Play extends Phaser.Scene {
             this.ship02.doubleSpeed();
             this.ship03.doubleSpeed();
         }, null, this);
+        // playing with clock
+        //this.currentTime = this.clock.getElapsedSeconds();
+        this.timerDisplay = this.add.text(game.config.width/2, game.config.height/2, '0', scoreConfig);
     }
 
     update(){
@@ -143,6 +146,9 @@ class Play extends Phaser.Scene {
         if(this.p1Score > highScore){
             highScore = this.p1Score;
         }
+        // Get current seconds, round down, subtract from playtime
+        this.timerDisplay.text = (game.settings.gameTimer / 1000) - 
+                                 Phaser.Math.FloorTo(this.clock.getElapsedSeconds());
     }
 
     checkCollision(rocket, ship) {
