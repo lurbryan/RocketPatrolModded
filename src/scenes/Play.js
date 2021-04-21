@@ -14,9 +14,15 @@ class Play extends Phaser.Scene {
                                 frameHeight: 32, 
                                 startFrame: 0, 
                                 endFrame: 9});
+        this.load.audio('lightyear', './assets/Light-Years_V001.mp3');
     }
 
     create(){
+        // MOD 6:
+        // Added background music
+        // start music
+        this.music = this.sound.add('lightyear');
+        this.music.play();
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         // green UI background
@@ -68,12 +74,18 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
+        // Show current score
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        // MOD 5:
+        // Persistent high score across multiple games
+        // Show high score
+        this.scoreRight = this.add.text(game.config.width - ((borderUISize + borderPadding) * 3.5), borderUISize + borderPadding*2, highScore, scoreConfig);
         // GAME OVER flag
         this.gameOver = false;
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
+            this.music.stop();
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
@@ -127,6 +139,10 @@ class Play extends Phaser.Scene {
         else {
             this.fireFlag.visible = false;
         }
+        // update high score if exceded
+        if(this.p1Score > highScore){
+            highScore = this.p1Score;
+        }
     }
 
     checkCollision(rocket, ship) {
@@ -148,7 +164,12 @@ class Play extends Phaser.Scene {
         let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
         boom.anims.play('explode');             // play explode animation
         boom.on('animationcomplete', () => {    // callback after ani completes
-            ship.reset();                       // reset ship position
+            if(ship.coinFlip == 0){
+                ship.resetLeft();               // reset ship position
+            }
+            else {
+                ship.resetRight();
+            }
             ship.alpha = 1;                     // make ship visible again
             boom.destroy();                     // remove explosion sprite
         });

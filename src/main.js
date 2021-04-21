@@ -3,11 +3,13 @@
  * CMPM 120 - Game Development Experience
  * 19 April 2021
  * 
- * List of Changes:
+ * List of Changes:                                              Points:
  *     1. Added FIRE UI display when F is pressed.               (5)
  *     2. Now allows player control after rocket has been fired. (5)
  *     3. Ships increase in speed 30 seconds into game.          (5)
  *     4. Ships start in random direction of motion.             (5)
+ *     5. Created persisten high score display.                  (5)
+ *     6. Added background music.                                (5)
  * 
  * 
  * How long did this take me?
@@ -20,6 +22,9 @@
  * Sources to cite, if any...
  *   - These hepful people on StackOverflow, showing how to show
  *     and hide sprites : https://stackoverflow.com/questions/29148886/show-hide-sprites-texts-in-phaser
+ *   - Much of the Phaser documentation on phasergames.com and phaser.io
+ *   - Music courtesy of Eric Matyas's open source compilation on
+ *     https://soundimage.org/sci-fi/
  *   - 
 */
 
@@ -39,3 +44,4 @@ let keyF, keyR, keyLEFT, keyRIGHT;
 // set UI sizes
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
+let highScore = 0;
