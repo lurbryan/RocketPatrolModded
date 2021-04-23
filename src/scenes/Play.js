@@ -28,18 +28,16 @@ class Play extends Phaser.Scene {
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         // green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
-        // white borders
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
         // add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
         // add spaceships (x3)
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
-        this.corvette01 = new Corvette(this, game.config.width, borderUISize*6 + borderPadding*4, 'corvette', 0, 10).setOrigin(0,0);
+        // MOD 8:
+        // Created new enemy type
+        // add bonus ship (x1)
+        this.corvette01 = new Corvette(this, game.config.width, (borderUISize*4 + (borderUISize*5 + borderPadding*2))/2, 'corvette', 0, 50).setOrigin(0,0);
         // flip them if they're going the other way
         if(this.ship01.coinFlip == 1){
             this.ship01.flipX = true;
@@ -50,6 +48,16 @@ class Play extends Phaser.Scene {
         if(this.ship03.coinFlip == 1){
             this.ship03.flipX = true;
         }
+        // asset looks better flying backwards
+        if(this.corvette01.coinFlip == 0){
+            this.corvette01.flipX = true;
+        }
+        // white borders
+        // (moved here because it looks a little better to have the ships 'under' the borders)
+        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
         // define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
@@ -102,9 +110,10 @@ class Play extends Phaser.Scene {
         // MOD 3:
         // Speed of ships increases halfway through the game
         this.time.delayedCall(game.settings.gameTimer/2, () => {
-            this.ship01.doubleSpeed();
-            this.ship02.doubleSpeed();
-            this.ship03.doubleSpeed();
+            this.ship01.increaseSpeed();
+            this.ship02.increaseSpeed();
+            this.ship03.increaseSpeed();
+            this.corvette01.increaseSpeed();
         }, null, this);
     }
 
@@ -141,6 +150,10 @@ class Play extends Phaser.Scene {
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
+        }
+        if (this.checkCollision(this.p1Rocket, this.corvette01)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.corvette01);
         }
         // MOD 1:
         // Display or hide FIRE flag

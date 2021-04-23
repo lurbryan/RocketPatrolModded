@@ -4,7 +4,7 @@ class Corvette extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this); // add to existing, displayList, updateList
         this.points = pointValue; // track rocket's firing status
-        this.moveSpeed = game.settings.spaceshipSpeed * 2;
+        this.moveSpeed = game.settings.spaceshipSpeed * 1.5;
         // MOD 4:
         // Randomize direction of movement for each ship.
         // Flip a coin by getting a random number between 0-1, i.e. 0 OR 1

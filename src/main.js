@@ -11,6 +11,7 @@
  *     5. Created persisten high score display.                  (5)
  *     6. Added background music.                                (5)
  *     7. Display seconds remaining in screen.                   (10)
+ *     8. Added new type of ship: smaller, faster, worth more.   (20)
  * 
  * 
  * How long did this take me?
