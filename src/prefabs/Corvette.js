@@ -39,7 +39,7 @@ class Corvette extends Phaser.GameObjects.Sprite {
         this.x = 0;
     }
 
-    doubleSpeed(){
+    increaseSpeed(){
         this.moveSpeed *= 1.5;
     }
 }
