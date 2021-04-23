@@ -79,7 +79,7 @@ class Play extends Phaser.Scene {
         // MOD 5:
         // Persistent high score across multiple games
         // Show high score
-        this.scoreRight = this.add.text(game.config.width - ((borderUISize + borderPadding) * 3.5), borderUISize + borderPadding*2, highScore, scoreConfig);
+        this.scoreRight = this.add.text((borderUISize + borderPadding)*4, borderUISize + borderPadding*2, highScore, scoreConfig);
         // GAME OVER flag
         this.gameOver = false;
         // 60-second play clock
@@ -94,16 +94,16 @@ class Play extends Phaser.Scene {
         // FIRE flag
         this.fireFlag = this.add.text(game.config.width/2, borderUISize + borderPadding*2, 
             'FIRE', scoreConfig);
+        // Place the clock
+        this.timerDisplay = this.add.text(game.config.width - (borderUISize + borderPadding) * 2, 
+                                          borderUISize + borderPadding*2, '0', scoreConfig);
         // MOD 3:
-        // Speed of ships increases 30 seconds in
-        this.clock = this.time.delayedCall(30000, () => {
+        // Speed of ships increases halfway through the game
+        this.time.delayedCall(game.settings.gameTimer/2, () => {
             this.ship01.doubleSpeed();
             this.ship02.doubleSpeed();
             this.ship03.doubleSpeed();
         }, null, this);
-        // playing with clock
-        //this.currentTime = this.clock.getElapsedSeconds();
-        this.timerDisplay = this.add.text(game.config.width/2, game.config.height/2, '0', scoreConfig);
     }
 
     update(){
@@ -146,6 +146,8 @@ class Play extends Phaser.Scene {
         if(this.p1Score > highScore){
             highScore = this.p1Score;
         }
+        // MOD 6:
+        // Display time remaining in seconds
         // Get current seconds, round down, subtract from playtime
         this.timerDisplay.text = (game.settings.gameTimer / 1000) - 
                                  Phaser.Math.FloorTo(this.clock.getElapsedSeconds());

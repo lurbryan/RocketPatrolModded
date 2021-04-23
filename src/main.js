@@ -10,6 +10,7 @@
  *     4. Ships start in random direction of motion.             (5)
  *     5. Created persisten high score display.                  (5)
  *     6. Added background music.                                (5)
+ *     7. Display seconds remaining in screen.                   (10)
  * 
  * 
  * How long did this take me?
