@@ -20,6 +20,11 @@
  *     needed to clear my cache in order to print text, so there's
  *     that...
  * 
+ *     All week. It took me all week in fits and starts, working on
+ *     and off throughout. Even as I write this, I'm not done, but
+ *     I am pushing up against the Friday deadline, which is the third
+ *     deadline so far (thank for that, seriously). 
+ * 
  * Sources to cite, if any...
  *   - These hepful people on StackOverflow, showing how to show
  *     and hide sprites : https://stackoverflow.com/questions/29148886/show-hide-sprites-texts-in-phaser

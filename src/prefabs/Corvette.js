@@ -1,10 +1,10 @@
-// Spaceship prefab
-class Spaceship extends Phaser.GameObjects.Sprite {
+// Corvette prefab
+class Corvette extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, pointValue){
         super(scene, x, y, texture, frame);
         scene.add.existing(this); // add to existing, displayList, updateList
         this.points = pointValue; // track rocket's firing status
-        this.moveSpeed = game.settings.spaceshipSpeed;
+        this.moveSpeed = game.settings.spaceshipSpeed * 2;
         // MOD 4:
         // Randomize direction of movement for each ship.
         // Flip a coin by getting a random number between 0-1, i.e. 0 OR 1

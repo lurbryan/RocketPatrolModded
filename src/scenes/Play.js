@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
         // load images/tile sprites
         this.load.image('rocket', './assets/rocket.png');
         this.load.image('spaceship', './assets/spaceship.png');
+        this.load.image('corvette', './assets/corvette.png');
         this.load.image('starfield', './assets/starfield.png');
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', 
@@ -38,6 +39,7 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
+        this.corvette01 = new Corvette(this, game.config.width, borderUISize*6 + borderPadding*4, 'corvette', 0, 10).setOrigin(0,0);
         // flip them if they're going the other way
         if(this.ship01.coinFlip == 1){
             this.ship01.flipX = true;
@@ -107,6 +109,11 @@ class Play extends Phaser.Scene {
     }
 
     update(){
+        // MOD 6:
+        // Display time remaining in seconds
+        // Get current seconds, round down, subtract from playtime
+        var currentTime = (game.settings.gameTimer / 1000) - 
+                           Phaser.Math.FloorTo(this.clock.getElapsedSeconds());
         // check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart();
@@ -120,11 +127,12 @@ class Play extends Phaser.Scene {
             this.ship01.update();           // update spaceships (x3)
             this.ship02.update();
             this.ship03.update();
+            this.corvette01.update();
         } 
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();
-            this.shipExplode(this.ship03);   
+            this.shipExplode(this.ship03);
         }
         if (this.checkCollision(this.p1Rocket, this.ship02)) {
             this.p1Rocket.reset();
@@ -146,11 +154,8 @@ class Play extends Phaser.Scene {
         if(this.p1Score > highScore){
             highScore = this.p1Score;
         }
-        // MOD 6:
-        // Display time remaining in seconds
-        // Get current seconds, round down, subtract from playtime
-        this.timerDisplay.text = (game.settings.gameTimer / 1000) - 
-                                 Phaser.Math.FloorTo(this.clock.getElapsedSeconds());
+        // update timer display
+        this.timerDisplay.text = currentTime;
     }
 
     checkCollision(rocket, ship) {
@@ -184,6 +189,6 @@ class Play extends Phaser.Scene {
         // score add and repaint
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
-        this.sound.play('sfx_explosion');      
+        this.sound.play('sfx_explosion');
     }
 }
