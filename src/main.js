@@ -12,6 +12,12 @@
  *     6. Added background music.                                (5)
  *     7. Display seconds remaining in screen.                   (10)
  *     8. Added new type of ship: smaller, faster, worth more.   (20)
+ *     9. Redone assets for spacships, rocket, and explostion.   (20)
+ *        (the explosion doesn't really show up correctly, but
+ *         I'm still counting it 'cause A: it's different, and
+ *         B: it took three hours of hair pulling to do ONE asset.)
+ *            
+ *                                                         Total: 80 points   
  * 
  * 
  * How long did this take me?
@@ -32,7 +38,7 @@
  *   - Much of the Phaser documentation on phasergames.com and phaser.io
  *   - Music courtesy of Eric Matyas's open source compilation on
  *     https://soundimage.org/sci-fi/
- *   - 
+ *   - pixilart.com was my asset editor for this one
 */
 
 
