@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
                                 frameHeight: 32, 
                                 startFrame: 0, 
                                 endFrame: 9});
-        this.load.audio('lightyear', './assets/Light-Years_V001.mp3');
+        this.load.audio('lightyear', './assets/Light-Years_v001.mp3');
     }
 
     create(){
